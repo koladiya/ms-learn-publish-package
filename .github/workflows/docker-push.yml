@@ -6,17 +6,22 @@ on:
   # pull_request:
   #   branches: [ "main" ]
 
-jobs:
-
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: |
-        echo $GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
-        docker build . --file ./sample-packages/docker/Dockerfile --tag ghcr.io/koladiya/publish-test-package:latest
-        docker push ghcr.io/koladiya/publish-test-package:latest
         
+jobs:
+  login:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Login to GitLab
+        uses: docker/login-action@v3
+        with:
+          registry: registry.gitlab.com
+          username: ${{ secrets.GITLAB_USERNAME }}
+          password: ${{ secrets.GITLAB_PASSWORD }}
+
+      - name: Build the Docker image
+        run: |
+          # echo $GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
+          docker build . --file ./sample-packages/docker/Dockerfile --tag ghcr.io/koladiya/publish-test-package:latest
+          docker push ghcr.io/koladiya/publish-test-package:latest
