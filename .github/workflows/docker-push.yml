@@ -16,7 +16,6 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: |
-        #- docker build . --file Dockerfile --tag my-image-name:$(date +%s)
         - echo $GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
         - docker build . --file ./sample-packages/docker/Dockerfile --tag ghcr.io/koladiya/publish-test-package:latest
         - docker push ghcr.io/koladiya/publish-test-package:latest
