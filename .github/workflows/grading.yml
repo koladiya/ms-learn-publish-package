@@ -29,6 +29,3 @@ jobs:
     steps:
       - name: troubleshooting steps
         run: echo "" #Help the user to troubleshoot the activity
-
-
-        
