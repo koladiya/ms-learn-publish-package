@@ -35,5 +35,6 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" > .npmrc
           echo "registry=https://npm.pkg.github.com/koladiya" >> .npmrc
           npm publish
+        working-directory: ./sample-packages/npm
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
